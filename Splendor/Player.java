@@ -9,11 +9,11 @@ public abstract class Player implements Displayable {
          * Player 1: Camille
          * ⓪pts
          * 
-         * ♥R (0) [0]
-         * ●O (0) [0]
-         * ♣E (0) [0]
-         * ♠S (0) [0]
-         * ♦D (0) [0]
+         * ♥R (0) [3]
+         * ●O (0) [4]
+         * ♣E (0) [5]
+         * ♠S (0) [6]
+         * ♦D (0) [7]
          */
         String pointStr = " ";
         String[] strPlayer = new String[8];
