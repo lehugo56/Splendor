@@ -1,2 +1,2 @@
-project java en cour \n
+project java en cour "\n"
 modif class x
