@@ -1,4 +1,24 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class DevCard implements Displayable {
+    
+    private int tier;
+    private Resources res; 
+    private int point;
+    private String resourceType;
+    
+    public DevCard(int tier ,int coutDIAMOND,int coutSAPPHIRE,int coutEMERALD , int coutRUBY , int coutONYX , int point , String resourceType)
+    {
+        this.tier = tier;
+        res.setNbResource(1 , coutDIAMOND);
+        res.setNbResource(1 , coutSAPPHIRE);
+        res.setNbResource(1 , coutEMERALD);
+        res.setNbResource(1 , coutRUBY);
+        res.setNbResource(1 , coutONYX);
+        this.point = point;
+        this.resourceType = resourceType;    
+    }
     
     public String[] toStringArray(){
         /** EXAMPLE
@@ -73,5 +93,18 @@ public class DevCard implements Displayable {
         }
         */
         return cardStr;
+    }
+    
+    
+    public Resources getres(){
+        return res;
+    }
+    
+    public int getPoints(){
+        return point;
+    }
+    
+    public String getresourceType(){
+        return resourceType;
     }
 }
