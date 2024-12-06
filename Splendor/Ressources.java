@@ -37,11 +37,27 @@ public class Ressources
     }
     
     public int[] getAvailableRessources(){
-        tableau=new int[]
         
-        for(int i=0;i<8;i++){
-            if(listeRessources[i]!=0){
-                tableau[cpt];
+        int cpt=-1;
+        
+        for(int i=0;i<8;i++){//Permet de savoir quelle taille la liste doit etre
+            if(listeRessources[i]>0){
+                cpt+=1;
+            }
+        }
+        if (cpt==-1){ //verifie que la liste n'est pas nul
+            return null;
+        }
+        else{
+        int[] tableau= new int[cpt];
+        int elements=0;
+        for(int i=0;i<8;i++){//ajoute l'indice des pierres qui ont plus de 0 ressources.
+            if(listeRessources[i]>0){
+                tableau[elements]=i;
+                elements+=1;
+            }
+        }
+        return tableau;
             }
         }
     }
