@@ -21,7 +21,7 @@ public class Ressources
         return listeRessources[elements_ressources];       
     }
     
-    public void setNbRessouce(int elements_ressources,int new_ressources){
+    public void setNbRessource(int elements_ressources,int new_ressources){
         listeRessources[elements_ressources]=new_ressources;
     }
     
