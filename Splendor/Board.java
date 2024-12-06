@@ -53,7 +53,7 @@ public class Board implements Displayable {
             case 2 -> 4;
             case 3 -> 5;
             case 4 -> 7;
-            default -> throw new IllegalArgumentException("Invalid number of players");
+            default -> throw new IllegalArgumentException("Nombre de joueurs invalide");
         };
 
         for (Resource resource : Resource.values()) {
@@ -86,7 +86,7 @@ public class Board implements Displayable {
     }
 
     public void setNbResource(Resource resource, int count) {
-        resources.put(resource, count);
+        resources.put(resource, count); 
     }
     
     private void initializeDecks() {
@@ -116,7 +116,7 @@ public class Board implements Displayable {
          * Resources disponibles : 4♥R 4♣E 4♠S 4♦D 4●O
          */
         // resStr en StringBuilder, sinon erreur
-        StringBuilder resStr = new StringBuilder("Resources disponibles : ");
+        StringBuilder resStr = new StringBuilder("Ressources disponibles : ");
         for (Resource resource : Resource.values()) {
             resStr.append(getNbResource(resource)).append(resource.toSymbol()).append(" ");
         }
