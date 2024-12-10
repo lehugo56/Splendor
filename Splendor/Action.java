@@ -1,13 +1,21 @@
-
 /**
- * Décrivez votre interface Action ici.
- *
- * @author  (votre nom)
- * @version (un numéro de version ou une date)
+ * Représente une action dans le jeu Splendor.
+ * Cette interface définit les actions pouvant être exécutées sur le plateau et par les joueurs.
  */
+public interface Action {
+    /**
+     * Exécute l'action donnée sur le plateau et par un joueur.
+     * 
+     * @param board le plateau de jeu.
+     * @param player le joueur qui effectue l'action.
+     */
+    void process(Board board, Player player);
 
-public interface Action
-{
-    public void process(String action);
-    public String toString();
+    /**
+     * Représente l'action sous forme de chaîne de caractères.
+     * 
+     * @return une description de l'action.
+     */
+    String toString();
 }
+
