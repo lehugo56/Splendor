@@ -1,4 +1,4 @@
-classe Board complétée en majorité, ajuster les implémentations quand DevCard et Ressources seront complètes.
+METTRE A JOUR Ressources (svp)
 
 carte dans le csv:
 
