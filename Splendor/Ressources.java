@@ -34,7 +34,7 @@ public class Resources
         }
         
     }
-    public void setNbResouce(Resource elements_resources,int new_resources){
+    public void setNbResource(Resource elements_resources,int new_resources){
         switch(elements_resources){
             case DIAMOND:
                 listeResources[1]=new_resources;
@@ -53,10 +53,10 @@ public class Resources
     public void updateNbResource(Resource elements_resources, int quantité){
         int somme=getNbResource(elements_resources)+quantité;
         if(somme>0){
-            setNbResouce(elements_resources,somme);
+            setNbResource(elements_resources,somme);
         }
         else{
-            setNbResouce(elements_resources,0);
+            setNbResource(elements_resources,0);
         }
         
     }
