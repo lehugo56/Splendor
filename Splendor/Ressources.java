@@ -1,4 +1,3 @@
-
 /**
  * Décrivez votre classe Ressources ici.
  *
@@ -6,42 +5,42 @@
  * @version (un numéro de version ou une date)
  */
 import java.util.ArrayList;
-public class Ressources
+public class Resources
 {
-    private int[] listeRessources;
+    private int[] listeResources;
 
-    public Ressources() {
+    public Resources() {
         // Initialisation du tableau avec 8 éléments à 0
         
         for(int i=0;i<4;i++){
-            listeRessources = new int[8];
+            listeResources = new int[8];
         }
     }
-    public int getNbRessource(int elements_ressources){
-        return listeRessources[elements_ressources];       
+    public int getNbResource(int elements_resources){
+        return listeResources[elements_resources];       
     }
     
-    public void setNbRessource(int elements_ressources,int new_ressources){
-        listeRessources[elements_ressources]=new_ressources;
+    public void setNbResource(int elements_resources,int new_resources){
+        listeResources[elements_resources]=new_resources;
     }
     
-    public void updateNbRessource(int elements_ressources, int quantité){
-        int somme=listeRessources[elements_ressources]+quantité;
+    public void updateNbResource(int elements_resources, int quantité){
+        int somme=listeResources[elements_resources]+quantité;
         if(somme>0){
-            listeRessources[elements_ressources]=somme;
+            listeResources[elements_resources]=somme;
         }
         else{
-            listeRessources[elements_ressources]=0;
+            listeResources[elements_resources]=0;
         }
         
     }
     
-    public int[] getAvailableRessources(){
+    public int[] getAvailableResources(){
         
         int cpt=-1;
         
         for(int i=0;i<8;i++){//Permet de savoir quelle taille la liste doit etre
-            if(listeRessources[i]>0){
+            if(listeResources[i]>0){
                 cpt+=1;
             }
         }
@@ -52,7 +51,7 @@ public class Ressources
         int[] tableau= new int[cpt];
         int elements=0;
         for(int i=0;i<8;i++){//ajoute l'indice des pierres qui ont plus de 0 ressources.
-            if(listeRessources[i]>0){
+            if(listeResources[i]>0){
                 tableau[elements]=i;
                 elements+=1;
             }
