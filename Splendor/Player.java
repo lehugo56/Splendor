@@ -16,34 +16,112 @@ public abstract class Player implements Displayable {
         id_cpt++;//permet d'augmenter l'id a chaque initialisation.
         id=id_cpt;
     }
-    public String getnom(){
+
+    /**
+     * Accesseur de l'attribut nom
+     * 
+     * @return nom du joueur
+     */
+    public String getNom(){
         return name;
     }
 
-    public int getpoints(){
+    /**
+     * Accesseur du prestige (nombre de points) du joueur
+     * 
+     * @return nombre de points
+     */
+    public int getPoints(){
         return points;
     }
+
+    /**
+     * Accesseur du nombre de tokens 
+     * 
+     * @return 
+     */
     public Resources getNbTokens(){//peut etre un probleme ici
         return resources;
     }
+
+    /**
+     *  Accesseur du nombre de cartes achetées
+     *  
+     *  @return nombre de cartes achetées
+     */
     public ArrayList<DevCard> getNbPurchasedCards(){
         return purchaseCards;
     }
+    
+    /**
+     * Accesseur du nombre de ressources (jetons) du joueur
+     * 
+     * @return nombre de ressources
+     */
     public  int getNbResource(Resource elements_resources){
          return resources.getNbResource(elements_resources);
     }
+
+    /**
+     * Accesseur la liste des ressources disponibles
+     * 
+     * @return 
+     */
     public int[] getAvailableResources(){
         resources.getAvailableResources();
     }
-    public int getResFromCards(Resource elements_resources){
-        
+    
+    /**
+     *  Retourne le nombre de jetons bonus parmi les cartes achetées pour un type donné
+     *  
+     *  @param type de la ressource
+     *  @return le nombre de jetons bonus
+     */
+    public int getResFromCards (Resource type){
+        int count = 0;
+        for (DevCard card : purchaseCards){
+            if (card.getRessourceType() == type){
+                count++;
+            }
+        }
     }
+
+    /**
+     * Vérifie si le joueur a assez de ressources pour acheter une carte.
+     * 
+     * @return true si le joueur peut acheter la carte, false sinon
+     */
+    private boolean canBuyCard() {
+        return getNbResource() >= getRes(); 
+    }
+
+    /**
+     * Met à jour le nombre de ressource (pour un type donné) en fonction de v
+     * si v > 0, ajoute
+     * si v < 0, supprime
+     * 
+     * @param le type de ressource & v 
+     * @return le nombre de ressource actualisé
+     */
     public void updateNbResource(Resource elements_resources, int v){
         resources.updateNbResource(elements_resources, v);
     }
+
+    /**
+    * Met à jour le nombre de points du joueur
+    *
+    * @param le nombre de points ajoutés
+    * @return le nombre de points actualisés du joueur
+    */
     public void updatePoints(int points){
         prestige+=points;
     }
+
+    /**
+    * Ajoute une carte achetée à la liste
+    *
+    * @param la carte achetée
+    */
     public void addPurchasedCard(DevCard card) {
         purchaseCards.add(card);
     }
