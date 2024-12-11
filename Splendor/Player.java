@@ -1,34 +1,47 @@
 import java.util.ArrayList;
 public abstract class Player implements Displayable {
 
+    private static int id_cpt=0;
     private int id;
     private String name;
     private int prestige;
     private ArrayList<DevCard> purchaseCards;
     private Resources resources;
     
-    public  Player(int id, String name){
-        this.id=id;
+    public  Player(String name){
         this.name=name;
         prestige=0;
         purchaseCards=new ArrayList<DevCard>();
         resources=new resources();
+        id_cpt++;//permet d'augmenter l'id a chaque initialisation.
+        id=id_cpt;
     }
     public String getnom(){
         return nom;
     }
+
     public int getpoints(){
         return prestige;
     }
-    public  int getNbTokens(){
-        
+    public Resources getNbTokens(){//peut etre un probleme ici
+        return resources;
     }
-    public  int getAvailableResources(){
+    public ArrayList<DevCard> getNbPurchasedCards(){
+        return purchaseCArds;
+    }
+    public  int getNbResource(Resource elements_resources){
+         resources.getNbResource(elements_resources);
+    }
+    public  Set<Resource> getAvailableResources(){
         getAvailableResources();
+    }
+    public int getResFromCards(Resource elements_resources){
+        
     }
     public String[] toStringArray(){
         /** EXAMPLE. The number of resource tokens is shown in brackets (), and the number of cards purchased from that resource in square brackets [].
          * Player 1: Camille
+         * 
          * ⓪pts
          * 
          * ♥R (0) [3]
