@@ -114,23 +114,29 @@ public class DevCard implements Displayable {
     }
     
     /**
-     * accéseur de resource
+     * Accesseur de ressource
+     * 
+     * @return une liste contenant le nombre de ressources nécessaires pour chaque type
      */
-    public Resources getres(){
+    public Resources getRes(){
         return resource;
     }
     
     /**
-     * accéseur du nombre de point de la carte
+     * Accesseur du nombre de points (de prestige) de la carte
+     * 
+     * @return nombre de point associé à la carte
      */
     public int getPoints(){
         return point;
     }
     
     /**
-     * accéseur du type de resource de la carte 
+     * Accesseur du type de ressource de la carte 
+     * 
+     * @return le type du bonus conféré par la carte
      */
-    public Resource getressourceType(){
+    public Resource getRessourceType(){
         return resourceType;
     }
 }
