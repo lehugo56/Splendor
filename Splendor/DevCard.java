@@ -8,6 +8,13 @@ public class DevCard implements Displayable {
     private int point;
     private Resource resourceType;
     
+    
+    /**
+     * Constructeur de la classe DevCard
+     * input : int tier (niveau de la carte) int coutDIAMOND (cout en diament de la carte) int coutSAPPHIRE (cout en sapphire de la carte)
+     * int coutEMERALD (cout en emeraude de la carte) int coutRUBY (cout en ruby de la carte) int coutONYX (cout en onyx de la carte)
+     * int point (nombre de point de prestige renporté l'or de l'obtention de la carte) String resourceType (type de resource remporté avec la carte)
+     */
     public DevCard(int tier ,int coutDIAMOND,int coutSAPPHIRE,int coutEMERALD , int coutRUBY , int coutONYX , int point , String resourceType)
     {
         this.tier = tier;
@@ -106,15 +113,23 @@ public class DevCard implements Displayable {
         return cardStr;
     }
     
-    
+    /**
+     * accéseur de resource
+     */
     public Resources getres(){
         return resource;
     }
     
+    /**
+     * accéseur du nombre de point de la carte
+     */
     public int getPoints(){
         return point;
     }
     
+    /**
+     * accéseur du type de resource de la carte 
+     */
     public Resource getressourceType(){
         return resourceType;
     }
