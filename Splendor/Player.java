@@ -4,39 +4,48 @@ public abstract class Player implements Displayable {
     private static int id_cpt=0;
     private int id;
     private String name;
-    private int prestige;
+    private int points;
     private ArrayList<DevCard> purchaseCards;
     private Resources resources;
     
     public  Player(String name){
         this.name=name;
-        prestige=0;
+        points=0;
         purchaseCards=new ArrayList<DevCard>();
-        resources=new resources();
+        resources=new Resources();
         id_cpt++;//permet d'augmenter l'id a chaque initialisation.
         id=id_cpt;
     }
     public String getnom(){
-        return nom;
+        return name;
     }
 
     public int getpoints(){
-        return prestige;
+        return points;
     }
     public Resources getNbTokens(){//peut etre un probleme ici
         return resources;
     }
     public ArrayList<DevCard> getNbPurchasedCards(){
-        return purchaseCArds;
+        return purchaseCards;
     }
     public  int getNbResource(Resource elements_resources){
-         resources.getNbResource(elements_resources);
+         return resources.getNbResource(elements_resources);
     }
-    public  Set<Resource> getAvailableResources(){
-        getAvailableResources();
+    public int[] getAvailableResources(){
+        resources.getAvailableResources();
     }
     public int getResFromCards(Resource elements_resources){
         
+    }
+    public void updateNbResource(Resource elements_resources, int v){
+        resources.updateNbResource(elements_resources, v);
+    }
+    public void updatePoints(int points){
+        prestige+=points;
+    }
+    public void addPurchasedCard(DevCard card) {
+        purchaseCards.add(card);
     }
     public String[] toStringArray(){
         /** EXAMPLE. The number of resource tokens is shown in brackets (), and the number of cards purchased from that resource in square brackets [].
@@ -63,7 +72,7 @@ public abstract class Player implements Displayable {
         strPlayer[0] = "Player "+(id+1)+": "+name;
         strPlayer[1] = pointStr + "pts";
         strPlayer[2] = "";
-        for(ACOMPLETER){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
+        for(Resources res : resources){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
             strPlayer[3+(Resource.values().length-1-res.ordinal())] = res.toSymbol() + " ("+resources.getNbResource(res)+") ["+getResFromCards(res)+"]";
         }
         
