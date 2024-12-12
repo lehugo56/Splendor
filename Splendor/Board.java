@@ -80,8 +80,27 @@ public class Board implements Displayable {
      * (À compléter avec des détails spécifiques au projet)
      */
     private void initializeDecks() {
-        // TODO : Charger les cartes depuis une source (ex. fichier ou base de données)
+    for (int tier = 1; tier <= 3; tier++) {
+        for (int i = 0; i < 20; i++) { // Supposons 20 cartes par niveau
+            DevCard card = new DevCard(
+                tier,                  // Niveau
+                tier + i,              // Coût en DIAMOND
+                tier + i + 1,          // Coût en SAPPHIRE
+                tier + i + 2,          // Coût en EMERALD
+                tier + i + 3,          // Coût en RUBY
+                tier + i + 4,          // Coût en ONYX
+                tier,                  // Points de prestige
+                Resource.values()[i % 5].toString() // Type de ressource (en rotation)
+            );
+            deck[tier - 1].push(card);
+        }
     }
+    // Mélanger les piles pour aléatoiriser les cartes
+    for (Stack<DevCard> stack : deck) {
+        Collections.shuffle(stack);
+    }
+}
+
 
     /**
      * Initialise les cartes visibles en tirant les premières cartes de chaque pile.

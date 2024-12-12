@@ -1,113 +1,128 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
-/*
- * Game Class, allows to play the game. That's it.
- * 
- * @author Matéo Ginier
+import java.util.*;
+
+/**
+ * Représente le déroulement du jeu Splendor.
+ * Cette classe gère les joueurs, le plateau, les tours de jeu, et la condition de victoire.
  */
 public class Game {
-    /* L'affichage et la lecture d'entrée avec l'interface de jeu se fera entièrement via l'attribut display de la classe Game.
-     * Celui-ci est rendu visible à toutes les autres classes par souci de simplicité.
-     * L'intéraction avec la classe Display est très similaire à celle que vous auriez avec la classe System :
-     *    - affichage de l'état du jeu (méthodes fournies): Game.display.outBoard.println("Nombre de joueurs: 2");
-     *    - affichage de messages à l'utilisateur: Game.display.out.println("Bienvenue sur Splendor ! Quel est ton nom?");
-     *    - demande d'entrée utilisateur: new Scanner(Game.display.in);
+    private static final int ROWS_BOARD = 36, ROWS_CONSOLE = 8, COLS = 82;
+    public static final Display display = new Display(ROWS_BOARD, ROWS_CONSOLE, COLS);
+
+    private Board board; // Le plateau de jeu
+    private List<Player> players; // Liste des joueurs
+
+    /**
+     * Méthode principale du jeu. Initialise une partie avec 2 joueurs par défaut.
      */
-    private static final int ROWS_BOARD=36, ROWS_CONSOLE=8, COLS=82;
-    public static final  Display display = new Display(ROWS_BOARD, ROWS_CONSOLE, COLS);
-
-    private Board board;
-    private List<Player> players;
-
     public static void main(String[] args) {
-        //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
-        Game game = new Game(2); 
+        Game game = new Game(2); // Démarrer une partie avec 2 joueurs
         game.play();
         display.close();
     }
 
-    public Game(int nbOfPlayers){
+    /**
+     * Constructeur de la classe `Game`.
+     * Initialise le plateau et la liste des joueurs.
+     * 
+     * @param nbOfPlayers le nombre de joueurs (entre 2 et 4).
+     */
+    public Game(int nbOfPlayers) {
         if (nbOfPlayers < 2 || nbOfPlayers > 4) {
             throw new IllegalArgumentException("Le nombre de joueurs doit être entre 2 et 4.");
         }
 
-        this.board = new Board();
+        this.board = new Board(nbOfPlayers);
         this.players = new ArrayList<>();
 
+        // Ajouter les joueurs (le premier joueur est un humain, les autres sont des robots simples)
         for (int i = 0; i < nbOfPlayers; i++) {
             if (i == 0) {
-                players.add(new HumanPlayer());
+                players.add(new HumanPlayer(i, "Joueur Humain"));
             } else {
-                players.add(new DumbRobotPlayer());
+                players.add(new DumbRobotPlayer(i, "Robot " + i));
             }
         }
     }
 
-    public int getNbPlayers(){
+    /**
+     * Retourne le nombre de joueurs dans la partie.
+     * 
+     * @return le nombre de joueurs.
+     */
+    public int getNbPlayers() {
         return players.size();
     }
 
-    private void display(int currentPlayer){
+    /**
+     * Affiche l'état actuel du jeu (plateau et joueurs).
+     * 
+     * @param currentPlayer l'indice du joueur actuellement en train de jouer.
+     */
+    private void display(int currentPlayer) {
         String[] boardDisplay = board.toStringArray();
         String[] playerDisplay = Display.emptyStringArray(0, 0);
-        for(int i=0;i<players.size();i++){
+
+        for (int i = 0; i < players.size(); i++) {
             String[] pArr = players.get(i).toStringArray();
-            if(i==currentPlayer){
-                pArr[0] = "\u27A4 " + pArr[0];
+            if (i == currentPlayer) {
+                pArr[0] = "\u27A4 " + pArr[0]; // Flèche pour indiquer le joueur actif
             }
             playerDisplay = Display.concatStringArray(playerDisplay, pArr, true);
-            playerDisplay = Display.concatStringArray(playerDisplay, Display.emptyStringArray(1, COLS-54, "┉"), true);
+            playerDisplay = Display.concatStringArray(playerDisplay, Display.emptyStringArray(1, COLS - 54, "┉"), true);
         }
+
         String[] mainDisplay = Display.concatStringArray(boardDisplay, playerDisplay, false);
 
         display.outBoard.clean();
         display.outBoard.print(String.join("\n", mainDisplay));
     }
 
-    public void play(){
+    /**
+     * Gère le déroulement d'une partie de jeu.
+     */
+    public void play() {
         int currentPlayerIndex = 0;
+
         while (!isGameOver()) {
             Player currentPlayer = players.get(currentPlayerIndex);
+
+            // Le joueur choisit une action et l'exécute
             Action action = currentPlayer.chooseAction();
-            action.process();
+            action.process(board, currentPlayer);
             display.actionPerformed(currentPlayer, action);
 
+            // Si le joueur dépasse la limite de jetons, il doit en défausser
             if (currentPlayer.getTokens().size() > 10) {
                 DiscardTokensAction discardAction = new DiscardTokensAction();
-                discardAction.process(currentPlayer);
+                discardAction.process(board, currentPlayer);
             }
 
+            // Passer au joueur suivant
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         }
-        gameOver();
+
+        gameOver(); // Fin de la partie
     }
 
-    private void move(Player player){
-        Action action = player.chooseAction();
-        action.process(this.board, player);
-        display.actionPerformed(player, action);
-    }
-
-    private void discardToken(Player player){
-        while (player.getTokens().size() > 10) {
-            Token tokenToDiscard = player.chooseTokenToDiscard();
-            player.discardToken(tokenToDiscard);
-        }
-    }
-
-    public boolean isGameOver(){
+    /**
+     * Vérifie si la condition de victoire est atteinte (un joueur avec au moins 15 points de prestige).
+     * 
+     * @return `true` si la partie est terminée, sinon `false`.
+     */
+    public boolean isGameOver() {
         for (Player player : players) {
-        if (player.getPrestigePoints() >= 15) {
-            return true;
+            if (player.getPrestigePoints() >= 15) {
+                return true;
+            }
         }
-    }
-    return false;
+        return false;
     }
 
-    private void gameOver(){
+    /**
+     * Affiche le gagnant ou déclare une égalité si nécessaire.
+     */
+    private void gameOver() {
         Player winner = null;
         int maxPrestige = 0;
 
@@ -117,14 +132,15 @@ public class Game {
                 maxPrestige = prestige;
                 winner = player;
             } else if (prestige == maxPrestige) {
-                winner = null; // In case of a tie
+                winner = null; // Égalité
             }
         }
+
         if (winner != null) {
-            display.out.println("Le gagnant est " + winner.getName() + " avec " + maxPrestige + " points de prestige!");
+            display.out.println("Le gagnant est " + winner.getName() + " avec " + maxPrestige + " points de prestige !");
         } else {
-            display.out.println("Il y a une égalité!");
+            display.out.println("Il y a une égalité !");
         }
-        
     }
 }
+
