@@ -1,17 +1,17 @@
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Représente une action où un joueur prend trois jetons de ressources différentes.
  */
 public class PickDiffTokensAction implements Action {
-    private List<Resource> resources;
+    private ArrayList<Resource> resources;
 
     /**
      * Constructeur de l'action.
      * 
      * @param resources la liste des trois ressources choisies.
      */
-    public PickDiffTokensAction(List<Resource> resources) {
+    public PickDiffTokensAction(ArrayList<Resource> resources) {
         if (resources.size() != 3) {
             throw new IllegalArgumentException("Il faut sélectionner exactement trois ressources différentes.");
         }
@@ -29,7 +29,7 @@ public class PickDiffTokensAction implements Action {
         if (board.canGiveDiffTokens(resources)) {
             for (Resource resource : resources) {
                 board.updateNbResource(resource, -1);
-                player.addTokens(resource, 1);
+                player.updateNbResource(resource, 1);
             }
         } else {
             throw new IllegalStateException("Pas assez de jetons disponibles pour prendre trois ressources différentes.");
@@ -46,4 +46,3 @@ public class PickDiffTokensAction implements Action {
         return "Prendre 3 jetons différents : " + resources.toString();
     }
 }
-

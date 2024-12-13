@@ -24,8 +24,8 @@ public class DiscardTokensAction implements Action {
      */
     @Override
     public void process(Board board, Player player) {
-        if (player.hasTokens(resource, amount)) {
-            player.removeTokens(resource, amount);
+        if (player.getNbResource(resource) >= amount) {
+            player.updateNbResource(resource, - amount);
             board.updateNbResource(resource, amount);
         } else {
             throw new IllegalStateException("Pas assez de jetons à défausser.");
@@ -42,5 +42,3 @@ public class DiscardTokensAction implements Action {
         return "Défausser " + amount + " " + resource.toSymbol();
     }
 }
-
-

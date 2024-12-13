@@ -40,7 +40,7 @@ public class Game {
             if (i == 0) {
                 players.add(new HumanPlayer("Joueur Humain"));
             } else {
-                players.add(new DumbRobotPlayer());
+                players.add(new DumbRobotPlayer("Robot " + i));
             }
         }
     }
@@ -66,7 +66,7 @@ public class Game {
         for (int i = 0; i < players.size(); i++) {
             String[] pArr = players.get(i).toStringArray();
             if (i == currentPlayer) {
-                pArr[0] = "\u27A4 " + pArr[0]; 
+                pArr[0] = "\u27A4 " + pArr[0]; // Flèche pour indiquer le joueur actif
             }
             playerDisplay = Display.concatStringArray(playerDisplay, pArr, true);
             playerDisplay = Display.concatStringArray(playerDisplay, Display.emptyStringArray(1, COLS - 54, "┉"), true);
@@ -88,12 +88,13 @@ public class Game {
             Player currentPlayer = players.get(currentPlayerIndex);
 
             // Le joueur choisit une action et l'exécute
-            Action action = currentPlayer.chooseAction(); // mettre un scanner ici
+            Action action = currentPlayer.chooseAction();
             action.process(board, currentPlayer);
+            display.actionPerformed(currentPlayer, action);
 
             // Si le joueur dépasse la limite de jetons, il doit en défausser
             if (currentPlayer.getNbTokens() > 10) {
-                DiscardTokensAction discardAction = new DiscardTokensAction(); // obtenir ressources, et leur nombre.
+                DiscardTokensAction discardAction = currentPlayer.chooseDiscardingTokens(1);
                 discardAction.process(board, currentPlayer);
             }
 
@@ -117,7 +118,7 @@ public class Game {
         }
         return false;
     }
-
+    
     /**
      * Affiche le gagnant ou déclare une égalité si nécessaire.
      */
@@ -142,4 +143,3 @@ public class Game {
         }
     }
 }
-

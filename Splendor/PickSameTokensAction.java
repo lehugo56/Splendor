@@ -1,5 +1,4 @@
 import java.util.Map;
-
 /**
  * Représente une action où un joueur prend deux jetons de la même ressource.
  */
@@ -25,7 +24,7 @@ public class PickSameTokensAction implements Action {
     public void process(Board board, Player player) {
         if (board.canGiveSameTokens(resource)) {
             board.updateNbResource(resource, -2);
-            player.addTokens(resource, 2);
+            player.updateNbResource(resource, 2);
         } else {
             throw new IllegalStateException("Pas assez de jetons disponibles pour en prendre deux de la même ressource.");
         }

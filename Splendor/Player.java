@@ -38,12 +38,13 @@ public abstract class Player implements Displayable {
     }
     
     /**
-     * Accesseur du nombre de ressources achetées
+     * Accesseur du nombre total de ressources achetées
      * 
-     * @return liste du nombre de ressource pour chaque type
+     * @return nombre de ressource total
      */
-    public Resources getNbTokens(){ //peut etre un probleme ici
-        return resources;
+    public int getNbTokens(){ 
+        return resources.getNbResource(Resource.DIAMOND) + resources.getNbResource(Resource.SAPPHIRE) + resources.getNbResource(Resource.EMERALD) 
+        + resources.getNbResource(Resource.RUBY) + resources.getNbResource(Resource.ONYX);
     }
     
     /**
@@ -117,6 +118,7 @@ public abstract class Player implements Displayable {
         }
         return count;
     }
+    
     public String[] toStringArray(){
         /** EXAMPLE. The number of resource tokens is shown in brackets (), and the number of cards purchased from that resource in square brackets [].
          * Player 1: Camille
@@ -155,7 +157,7 @@ public abstract class Player implements Displayable {
      * @param L'action choisie par le joueur
      * 
      */
-    abstract void chooseAction (int action);
+    abstract Action chooseAction ();
     
     /**
      * Permet de défausser un nombre n de Tokens.
@@ -163,5 +165,5 @@ public abstract class Player implements Displayable {
      * @param nbTokens le nombre de tokens dont on veut se débarasser
      * 
      */
-    abstract void chooseDiscardingTokens(int nbTokens);
+    abstract DiscardTokensAction chooseDiscardingTokens(int nbTokens);
 }
