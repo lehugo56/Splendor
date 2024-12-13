@@ -18,6 +18,7 @@ public class DevCard implements Displayable {
     public DevCard(int tier ,int coutDIAMOND,int coutSAPPHIRE,int coutEMERALD , int coutRUBY , int coutONYX , int point , String resourceType)
     {
         this.tier = tier;
+        resource = new Resources();
         resource.setNbResource(Resource.DIAMOND , coutDIAMOND);
         resource.setNbResource(Resource.SAPPHIRE , coutSAPPHIRE);
         resource.setNbResource(Resource.EMERALD , coutEMERALD);
