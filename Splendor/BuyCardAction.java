@@ -43,5 +43,3 @@ public class BuyCardAction implements Action {
         return "Acheter une carte du niveau " + level + ", colonne " + column;
     }
 }
-
-
