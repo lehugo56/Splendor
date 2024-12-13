@@ -25,20 +25,19 @@ public class DevCard implements Displayable {
         resource.setNbResource(Resource.RUBY , coutRUBY);
         resource.setNbResource(Resource.ONYX , coutONYX);
         this.point = point;
-        switch(resourceType)
-        {
-            case "DIAMOND":
-                this.resourceType = Resource.DIAMOND;
-            case "SAPPHIRE":
-                this.resourceType = Resource.SAPPHIRE;
-            case "EMERALD":
-                this.resourceType = Resource.EMERALD;
-            case "RUBY":
-                this.resourceType = Resource.RUBY;
-            case "ONYX":
-                this.resourceType = Resource.ONYX;
-            default:
-                this.resourceType = null;
+        if (resourceType.equals("DIAMOND")){
+            this.resourceType = Resource.DIAMOND;
+        }else if (resourceType.equals("SAPPHIRE")){
+            this.resourceType = Resource.SAPPHIRE;
+        }else if (resourceType.equals("EMERALD")){
+            this.resourceType = Resource.EMERALD;
+        }else if (resourceType.equals("RUBY")){
+            this.resourceType = Resource.RUBY;
+        }else if (resourceType.equals("ONYX")){
+            this.resourceType = Resource.ONYX;
+        }else{
+            System.out.println("Vous avez mal écrit le type de la ressource ");
+            resourceType = null;
         }
     }
     
