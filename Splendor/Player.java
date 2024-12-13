@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Set;
+
 public abstract class Player implements Displayable {
 
     private static int id_cpt=0;
@@ -9,23 +11,23 @@ public abstract class Player implements Displayable {
     private Resources resources;
     
     public  Player(String name){
-        this.name=name;
-        points=0;
-        purchaseCards=new ArrayList<DevCard>();
-        resources=new Resources();
-        id_cpt++;//permet d'augmenter l'id a chaque initialisation.
+        this.name = name;
+        points = 0;
+        purchaseCards = new ArrayList<DevCard>();
+        resources = new Resources();
+        id_cpt++; //permet d'augmenter l'id a chaque initialisation.
         id=id_cpt;
     }
-
+    
     /**
      * Accesseur de l'attribut nom
      * 
      * @return nom du joueur
      */
-    public String getNom(){
+    public String getName(){
         return name;
     }
-
+    
     /**
      * Accesseur du prestige (nombre de points) du joueur
      * 
@@ -34,16 +36,16 @@ public abstract class Player implements Displayable {
     public int getPoints(){
         return points;
     }
-
+    
     /**
-     * Accesseur du nombre de tokens 
+     * Accesseur du nombre de ressources achetées
      * 
-     * @return 
+     * @return liste du nombre de ressource pour chaque type
      */
-    public Resources getNbTokens(){//peut etre un probleme ici
+    public Resources getNbTokens(){ //peut etre un probleme ici
         return resources;
     }
-
+    
     /**
      *  Accesseur du nombre de cartes achetées
      *  
@@ -53,22 +55,51 @@ public abstract class Player implements Displayable {
         return purchaseCards;
     }
     
+    
     /**
-     * Accesseur du nombre de ressources (jetons) du joueur
+     * Accesseur du nombre de ressources (jetons + bonus) du joueurpour un type donné
      * 
      * @return nombre de ressources
      */
     public  int getNbResource(Resource elements_resources){
          return resources.getNbResource(elements_resources);
     }
-
+    
     /**
-     * Accesseur la liste des ressources disponibles
+     * Accesseur de la liste des ressources (en jetons) disponibles du joueur
      * 
-     * @return 
+     * @return liste des indices des ressources dispo
      */
-    public int[] getAvailableResources(){
-        resources.getAvailableResources();
+    public  int[] getAvailableResources(){
+        return resources.getAvailableResources();
+    }
+    
+    /**
+     * Vérifie si le joueur a assez de ressources pour acheter une carte.
+     * 
+     * @return true si le joueur peut acheter la carte, false sinon
+     */
+    public boolean canBuyCard(DevCard card) {
+        for (Resource resource : Resource.values()) {
+            int cost = card.getRes().getNbResource(resource);
+            int available = getNbResource(resource) + getResFromCards(resource);
+            if (available < cost) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+     /**
+     * Met à jour le nombre de ressource (pour un type donné) en fonction de v
+     * si v > 0, ajoute
+     * si v < 0, supprime
+     * 
+     * @param le type de ressource & v 
+     * @return le nombre de ressource actualisé
+     */
+    public void updateNbResource(Resource elements_resources, int v){
+        resources.updateNbResource(elements_resources, v);
     }
     
     /**
@@ -84,46 +115,7 @@ public abstract class Player implements Displayable {
                 count++;
             }
         }
-    }
-
-    /**
-     * Vérifie si le joueur a assez de ressources pour acheter une carte.
-     * 
-     * @return true si le joueur peut acheter la carte, false sinon
-     */
-    private boolean canBuyCard() {
-        return getNbResource() >= getRes(); 
-    }
-
-    /**
-     * Met à jour le nombre de ressource (pour un type donné) en fonction de v
-     * si v > 0, ajoute
-     * si v < 0, supprime
-     * 
-     * @param le type de ressource & v 
-     * @return le nombre de ressource actualisé
-     */
-    public void updateNbResource(Resource elements_resources, int v){
-        resources.updateNbResource(elements_resources, v);
-    }
-
-    /**
-    * Met à jour le nombre de points du joueur
-    *
-    * @param le nombre de points ajoutés
-    * @return le nombre de points actualisés du joueur
-    */
-    public void updatePoints(int points){
-        prestige+=points;
-    }
-
-    /**
-    * Ajoute une carte achetée à la liste
-    *
-    * @param la carte achetée
-    */
-    public void addPurchasedCard(DevCard card) {
-        purchaseCards.add(card);
+        return count;
     }
     public String[] toStringArray(){
         /** EXAMPLE. The number of resource tokens is shown in brackets (), and the number of cards purchased from that resource in square brackets [].
@@ -156,4 +148,20 @@ public abstract class Player implements Displayable {
         
         return strPlayer;
     }
+    
+    /**
+     * Choix de l'action faites
+     * 
+     * @param L'action choisie par le joueur
+     * 
+     */
+    abstract void chooseAction (int action);
+    
+    /**
+     * Permet de défausser un nombre n de Tokens.
+     * 
+     * @param nbTokens le nombre de tokens dont on veut se débarasser
+     * 
+     */
+    abstract void chooseDiscardingTokens(int nbTokens);
 }
