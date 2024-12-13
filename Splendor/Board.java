@@ -8,7 +8,7 @@ import java.util.*;
 public class Board implements Displayable {
     private Stack<DevCard>[] deck; // Piles de cartes de développement par niveau
     private DevCard[][] visibleCards; // Cartes visibles par niveau (4 par niveau)
-    private Map<Resource, Integer> resources; // Quantité de ressources disponibles sur le plateau
+    private Resources resources; // Quantité de ressources disponibles sur le plateau
 
     /**
      * Constructeur de la classe `Board`.
@@ -20,7 +20,7 @@ public class Board implements Displayable {
     public Board(int numPlayers) {
         deck = new Stack[3]; // Trois niveaux de cartes
         visibleCards = new DevCard[3][4]; // Quatre cartes visibles par niveau
-        resources = new HashMap<>();
+        resources = new Resources();
 
         for (int i = 0; i < 3; i++) {
             deck[i] = new Stack<>();
@@ -70,36 +70,36 @@ public class Board implements Displayable {
         };
 
         for (Resource resource : Resource.values()) {
-            resources.put(resource, count);
+            resources.updateNbResource(resource, count);
         }
     }
 
-    /**
+     /**
      * Initialise les piles de cartes de développement.
      * Les cartes sont chargées dans les piles selon leur niveau.
      * (À compléter avec des détails spécifiques au projet)
      */
     private void initializeDecks() {
-    for (int tier = 1; tier <= 3; tier++) {
-        for (int i = 0; i < 20; i++) { // Supposons 20 cartes par niveau
-            DevCard card = new DevCard(
-                tier,                  // Niveau
-                tier + i,              // Coût en DIAMOND
-                tier + i + 1,          // Coût en SAPPHIRE
-                tier + i + 2,          // Coût en EMERALD
-                tier + i + 3,          // Coût en RUBY
-                tier + i + 4,          // Coût en ONYX
-                tier,                  // Points de prestige
-                Resource.values()[i % 5].toString() // Type de ressource (en rotation)
-            );
-            deck[tier - 1].push(card);
+        for (int tier = 1; tier <= 3; tier++) {
+            for (int i = 0; i < 20; i++) { // Supposons 20 cartes par niveau
+                DevCard card = new DevCard(
+                    tier,                  // Niveau
+                    tier + i,              // Coût en DIAMOND
+                    tier + i + 1,          // Coût en SAPPHIRE
+                    tier + i + 2,          // Coût en EMERALD
+                    tier + i + 3,          // Coût en RUBY
+                    tier + i + 4,          // Coût en ONYX
+                    tier,                  // Points de prestige
+                    "ONYX" //Resource.values()[i % 5].toString() // Type de ressource (en rotation)
+                );
+                deck[tier - 1].push(card);
+            }
         }
-    }
-    // Mélanger les piles pour aléatoiriser les cartes
-    for (Stack<DevCard> stack : deck) {
-        Collections.shuffle(stack);
-    }
-}
+        // Mélanger les piles pour aléatoiriser les cartes
+        for (Stack<DevCard> stack : deck) {
+            Collections.shuffle(stack);
+        }
+    } 
 
 
     /**
@@ -120,15 +120,15 @@ public class Board implements Displayable {
      * 
      * @return un ensemble des ressources disponibles.
      */
-    public Set<Resource> getAvailableResources() {
-        Set<Resource> available = new HashSet<>();
-        for (Map.Entry<Resource, Integer> entry : resources.entrySet()) {
-            if (entry.getValue() > 0) {
-                available.add(entry.getKey());
-            }
-        }
-        return available;
-    }
+    // public Set<Resource> getAvailableResources() {
+        // Set<Resource> available = new HashSet<>();
+        // for (Map.Entry<Resource, Integer> entry : resources.entrySet()) {
+            // if (entry.getValue() > 0) {
+                // available.add(entry.getKey());
+            // }
+        // }
+        // return available;
+    // }
 
     /**
      * Retourne le nombre de jetons disponibles pour une ressource donnée.
@@ -137,7 +137,7 @@ public class Board implements Displayable {
      * @return la quantité de la ressource.
      */
     public int getNbResource(Resource resource) {
-        return resources.getOrDefault(resource, 0);
+        return resources.getNbResource(resource);
     }
 
     /**
@@ -147,7 +147,7 @@ public class Board implements Displayable {
      * @param count la nouvelle quantité.
      */
     public void setNbResource(Resource resource, int count) {
-        resources.put(resource, count); 
+        resources.updateNbResource(resource, count - resources.getNbResource(resource)); 
     }
 
     /**
@@ -157,8 +157,7 @@ public class Board implements Displayable {
      * @param delta la quantité à ajouter (positive) ou retirer (négative).
      */
     public void updateNbResource(Resource resource, int delta) {
-        int current = resources.getOrDefault(resource, 0);
-        resources.put(resource, Math.max(0, current + delta));
+        resources.updateNbResource(resource , delta);
     }
 
     /**
@@ -230,7 +229,7 @@ public class Board implements Displayable {
      * 
      * @return un tableau décrivant le plateau.
      */
-    private String[] boardToStringArray(){
+    public String[] boardToStringArray(){
         String[] deckDisplay = Display.emptyStringArray(0, 0);
         for (int i = 2; i >= 0; i--) {
             deckDisplay = Display.concatStringArray(deckDisplay, deckToStringArray(i + 1), true);

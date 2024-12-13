@@ -26,22 +26,22 @@ public class HumanPlayer extends Player
      */
     public Resource TypeResourcPlayer (String reponse) {
         Resource resource;
-        switch(reponse)
-            {
-                case "DIAMOND":
-                    resource = Resource.DIAMOND;
-                case "SAPPHIRE":
-                    resource = Resource.SAPPHIRE;
-                case "EMERALD":
-                    resource = Resource.EMERALD;
-                case "RUBY":
-                    resource = Resource.RUBY;
-                case "ONYX":
-                    resource = Resource.ONYX;
-                default:
-                    System.out.println("Vous avez mal écrit le type de la ressource");
-                    resource = null;
-            }
+
+        if (reponse.equals("DIAMOND")){
+            resource = Resource.DIAMOND;
+        }else if (reponse.equals("SAPPHIRE")){
+            resource = Resource.SAPPHIRE;
+        }else if (reponse.equals("EMERALD")){
+            resource = Resource.EMERALD;
+        }else if (reponse.equals("RUBY")){
+            resource = Resource.RUBY;
+        }else if (reponse.equals("ONYX")){
+            resource = Resource.ONYX;
+        }else{
+            System.out.println("Vous avez mal écrit le type de la ressource " + reponse);
+            resource = null;
+        }
+           
         return resource;
     }
     
