@@ -87,7 +87,9 @@ public class Game {
         while (!isGameOver()) {
             Player currentPlayer = players.get(currentPlayerIndex);
             
-            board.boardToStringArray();
+            String[] test = board.toStringArray(); 
+
+            Game.display.outBoard.println(Arrays.toString(test));
             
             // Le joueur choisit une action et l'exécute
             Action action = currentPlayer.chooseAction();
