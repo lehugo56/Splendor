@@ -26,7 +26,7 @@ public class BuyCardAction implements Action {
     public void process(Board board, Player player) {
         DevCard card = board.getCard(level, column);
         if (card != null && player.canBuyCard(card)) {
-            player.buyCard(card);
+            //player.buyCard(card);
             board.updateCard(level, column);
         } else {
             throw new IllegalStateException("Impossible d'acheter cette carte.");

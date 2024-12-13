@@ -90,7 +90,7 @@ public class Game {
             // Le joueur choisit une action et l'exécute
             Action action = currentPlayer.chooseAction();
             action.process(board, currentPlayer);
-            display.actionPerformed(currentPlayer, action);
+            //display.actionPerformed(currentPlayer, action);
 
             // Si le joueur dépasse la limite de jetons, il doit en défausser
             if (currentPlayer.getNbTokens() > 10) {
