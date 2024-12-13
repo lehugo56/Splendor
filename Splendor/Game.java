@@ -38,9 +38,9 @@ public class Game {
         // Ajouter les joueurs (le premier joueur est un humain, les autres sont des robots simples)
         for (int i = 0; i < nbOfPlayers; i++) {
             if (i == 0) {
-                players.add(new HumanPlayer(i, "Joueur Humain"));
+                players.add(new HumanPlayer("Joueur Humain"));
             } else {
-                players.add(new DumbRobotPlayer(i, "Robot " + i));
+                players.add(new DumbRobotPlayer());
             }
         }
     }
@@ -66,7 +66,7 @@ public class Game {
         for (int i = 0; i < players.size(); i++) {
             String[] pArr = players.get(i).toStringArray();
             if (i == currentPlayer) {
-                pArr[0] = "\u27A4 " + pArr[0]; // Flèche pour indiquer le joueur actif
+                pArr[0] = "\u27A4 " + pArr[0]; 
             }
             playerDisplay = Display.concatStringArray(playerDisplay, pArr, true);
             playerDisplay = Display.concatStringArray(playerDisplay, Display.emptyStringArray(1, COLS - 54, "┉"), true);
@@ -88,13 +88,12 @@ public class Game {
             Player currentPlayer = players.get(currentPlayerIndex);
 
             // Le joueur choisit une action et l'exécute
-            Action action = currentPlayer.chooseAction();
+            Action action = currentPlayer.chooseAction(); // mettre un scanner ici
             action.process(board, currentPlayer);
-            display.actionPerformed(currentPlayer, action);
 
             // Si le joueur dépasse la limite de jetons, il doit en défausser
-            if (currentPlayer.getTokens().size() > 10) {
-                DiscardTokensAction discardAction = new DiscardTokensAction();
+            if (currentPlayer.getNbTokens() > 10) {
+                DiscardTokensAction discardAction = new DiscardTokensAction(); // obtenir ressources, et leur nombre.
                 discardAction.process(board, currentPlayer);
             }
 
@@ -112,7 +111,7 @@ public class Game {
      */
     public boolean isGameOver() {
         for (Player player : players) {
-            if (player.getPrestigePoints() >= 15) {
+            if (player.getPoints() >= 15) {
                 return true;
             }
         }
@@ -127,7 +126,7 @@ public class Game {
         int maxPrestige = 0;
 
         for (Player player : players) {
-            int prestige = player.getPrestigePoints();
+            int prestige = player.getPoints();
             if (prestige > maxPrestige) {
                 maxPrestige = prestige;
                 winner = player;
