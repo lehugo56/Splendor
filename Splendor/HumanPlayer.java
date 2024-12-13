@@ -38,7 +38,7 @@ public class HumanPlayer extends Player
         }else if (reponse.equals("ONYX")){
             resource = Resource.ONYX;
         }else{
-            System.out.println("Vous avez mal écrit le type de la ressource " + reponse);
+            Game.display.out.println("Vous avez mal écrit le type de la ressource " + reponse);
             resource = null;
         }
            
@@ -52,27 +52,27 @@ public class HumanPlayer extends Player
      * 
      */
     public Action chooseAction() {
-        Scanner scanner = new Scanner( System.in );
-        System.out.println("Quelle action souhaitez-vous effectuer ?");
-        System.out.println("A : Acheter une carte");
-        System.out.println("B : Retirer 2 jetons du meme type de ressource");
-        System.out.println("C : Retirer 3 jetons de type différents");
-        System.out.println("D : Passer son tour");
+        Scanner scanner = new Scanner( Game.display.in );
+        Game.display.out.println("Quelle action souhaitez-vous effectuer ?");
+        Game.display.out.println("A : Acheter une carte");
+        Game.display.out.println("B : Retirer 2 jetons du meme type de ressource");
+        Game.display.out.println("C : Retirer 3 jetons de type différents");
+        Game.display.out.println("D : Passer son tour");
         String action = scanner.nextLine();
         switch(action)
         {   
            case "A": // Acheter une carte
-               System.out.println("Quelle est la colonne de la carte que vous voulez acheter ?");
+               Game.display.out.println("Quelle est la colonne de la carte que vous voulez acheter ?");
                int column = scanner.nextInt();
                
-               System.out.println("Quelle est le niveau de la carte que vous voulez acheter ?");
+               Game.display.out.println("Quelle est le niveau de la carte que vous voulez acheter ?");
                int level = scanner.nextInt();
                
                return new BuyCardAction(level, column);
   
                
            case "B": // Retirer 2 jetons du meme type de ressource
-               System.out.println("Pour quelle ressource voulez-vous récuperer 2 jetons ?");
+               Game.display.out.println("Pour quelle ressource voulez-vous récuperer 2 jetons ?");
                String reponse = scanner.nextLine();
                
                return new PickSameTokensAction(TypeResourcPlayer(reponse));
@@ -81,7 +81,7 @@ public class HumanPlayer extends Player
            case "C": // Retirer 3 jetons de type diff
                ArrayList<Resource> listeRes = new ArrayList<Resource>();
                for (int i = 0; i<4 ; i++){
-                   System.out.println("Quelle ressource voulez-vous prendre ?");
+                   Game.display.out.println("Quelle ressource voulez-vous prendre ?");
                    reponse = scanner.nextLine();
                    listeRes.add(TypeResourcPlayer(reponse));
                }
@@ -101,9 +101,9 @@ public class HumanPlayer extends Player
      * @param nbTokens le nombre de tokens dont on veut se débarasser
      */
     public DiscardTokensAction chooseDiscardingTokens(int nbTokens) {
-        Scanner scanner = new Scanner( System.in );
+        Scanner scanner = new Scanner( Game.display.in );
         
-        System.out.println("Quelle ressource voulez-vous supprimer?");
+        Game.display.out.println("Quelle ressource voulez-vous supprimer?");
         String reponse = scanner.nextLine();
         
         return new DiscardTokensAction(TypeResourcPlayer(reponse), nbTokens);
