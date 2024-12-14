@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
@@ -80,7 +82,23 @@ public class Board implements Displayable {
      * (À compléter avec des détails spécifiques au projet)
      */
     private void initializeDecks() {
-        for (int tier = 1; tier <= 3; tier++) {
+      // try{
+      // File CSVfile = new File("stats.csv");
+      // Scanner myReader = new Scanner(CSVfile);
+      // while (myReader.hasNextLine()) {
+        // String data = myReader.nextLine();
+        // String[] datas = data.split(",");
+        // if (!datas[0].equals("0")){
+            // int test = NumberUtils.toInt(datas[1]);
+        // }
+      // }
+      // myReader.close();
+        // // Mélanger les piles pour aléatoiriser les cartes
+      // for (Stack<DevCard> stack : deck) {
+          // Collections.shuffle(stack);
+      // }
+      // }catch(FileNotFoundException e){}
+      for (int tier = 1; tier <= 3; tier++) {
             for (int i = 0; i < 20; i++) { // Supposons 20 cartes par niveau
                 DevCard card = new DevCard(
                     tier,                  // Niveau
@@ -120,15 +138,9 @@ public class Board implements Displayable {
      * 
      * @return un ensemble des ressources disponibles.
      */
-    // public Set<Resource> getAvailableResources() {
-        // Set<Resource> available = new HashSet<>();
-        // for (Map.Entry<Resource, Integer> entry : resources.entrySet()) {
-            // if (entry.getValue() > 0) {
-                // available.add(entry.getKey());
-            // }
-        // }
-        // return available;
-    // }
+    public int[] getAvailableResources() {
+        return resources.getAvailableResources();
+    }
 
     /**
      * Retourne le nombre de jetons disponibles pour une ressource donnée.
