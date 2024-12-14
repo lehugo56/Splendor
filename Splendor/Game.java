@@ -88,9 +88,9 @@ public class Game {
             Player currentPlayer = players.get(currentPlayerIndex);
             
             String[] test = board.toStringArray(); 
-
-            Game.display.outBoard.println(Arrays.toString(test));
-            
+            for(String i : test){
+            Game.display.outBoard.println(i);
+        }
             // Le joueur choisit une action et l'exécute
             Action action = currentPlayer.chooseAction();
             action.process(board, currentPlayer);
