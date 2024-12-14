@@ -12,7 +12,7 @@ public enum Resource {
             case DIAMOND:
                 return "DIAMANT \u2666"; // DIAMANT ♦
             case SAPPHIRE:
-                return "SAPHIR \u2660"; // SAPHIR ♠
+                return "SAPPHIR \u2660"; // SAPHIR ♠
             case ONYX:
                 return "ONYX \u25CF"; // ONYX ●
             case RUBY:
