@@ -157,7 +157,7 @@ public abstract class Player implements Displayable {
      * @param L'action choisie par le joueur
      * 
      */
-    abstract Action chooseAction ();
+    abstract Action chooseAction (Board board);
     
     /**
      * Permet de défausser un nombre n de Tokens.

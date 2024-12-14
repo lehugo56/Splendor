@@ -51,7 +51,7 @@ public class HumanPlayer extends Player
      * @param L'action choisie par le joueur
      * 
      */
-    public Action chooseAction() {
+    public Action chooseAction(Board board) {
         Scanner scanner = new Scanner( Game.display.in );
         Game.display.out.println("Quelle action souhaitez-vous effectuer ?");
         Game.display.out.println("A : Acheter une carte");

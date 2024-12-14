@@ -92,7 +92,7 @@ public class Game {
             Game.display.outBoard.println(i);
         }
             // Le joueur choisit une action et l'exécute
-            Action action = currentPlayer.chooseAction();
+            Action action = currentPlayer.chooseAction(board);
             action.process(board, currentPlayer);
             //display.actionPerformed(currentPlayer, action);
 

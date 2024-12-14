@@ -11,7 +11,7 @@ public class DumbRobotPlayer extends Player
         super(name);
     }
     
-    public Action chooseAction (){
+    public Action chooseAction (Board board){
         return new PickSameTokensAction(Resource.ONYX);
     }
     
