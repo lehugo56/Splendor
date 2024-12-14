@@ -68,7 +68,7 @@ public class HumanPlayer extends Player
                Game.display.out.println("Quelle est le niveau de la carte que vous voulez acheter ?");
                int level = scanner.nextInt();
                
-               return new BuyCardAction(level, column);
+               return new BuyCardAction(level - 1, column - 1);
   
                
            case "B": // Retirer 2 jetons du meme type de ressource
