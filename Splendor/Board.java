@@ -75,48 +75,65 @@ public class Board implements Displayable {
             resources.updateNbResource(resource, count);
         }
     }
-
+    
+    public int StringToInt(String number){
+        if(number.equals("0")){
+            return 0;
+        }else if(number.equals("1")){
+            return 1;
+        }else if(number.equals("2")){
+            return 2;
+        }else if(number.equals("3")){
+            return 3;
+        }else if(number.equals("4")){
+            return 4;        
+        }else if(number.equals("5")){
+            return 5;
+        }else if(number.equals("6")){
+            return 6;
+        }else if(number.equals("7")){
+            return 7;
+        }else{
+            return 8;
+        }
+    }
+    
+    
      /**
      * Initialise les piles de cartes de développement.
      * Les cartes sont chargées dans les piles selon leur niveau.
      * (À compléter avec des détails spécifiques au projet)
      */
     private void initializeDecks() {
-      // try{
-      // File CSVfile = new File("stats.csv");
-      // Scanner myReader = new Scanner(CSVfile);
-      // while (myReader.hasNextLine()) {
-        // String data = myReader.nextLine();
-        // String[] datas = data.split(",");
-        // if (!datas[0].equals("0")){
-            // int test = NumberUtils.toInt(datas[1]);
-        // }
-      // }
-      // myReader.close();
-        // // Mélanger les piles pour aléatoiriser les cartes
-      // for (Stack<DevCard> stack : deck) {
-          // Collections.shuffle(stack);
-      // }
-      // }catch(FileNotFoundException e){}
-      for (int tier = 1; tier <= 3; tier++) {
-            for (int i = 0; i < 20; i++) { // Supposons 20 cartes par niveau
-                DevCard card = new DevCard(
-                    tier,                  // Niveau
-                    tier + i,              // Coût en DIAMOND
-                    tier + i + 1,          // Coût en SAPPHIRE
-                    tier + i + 2,          // Coût en EMERALD
-                    tier + i + 3,          // Coût en RUBY
-                    tier + i + 4,          // Coût en ONYX
-                    tier,                  // Points de prestige
-                    "ONYX" //Resource.values()[i % 5].toString() // Type de ressource (en rotation)
+      try{
+      File CSVfile = new File("stats.csv");
+      Scanner myReader = new Scanner(CSVfile);
+      String data = myReader.nextLine();
+      while (myReader.hasNextLine()) {
+        data = myReader.nextLine();
+        String[] datas = data.split(",");
+        System.out.println(Arrays.toString(datas));
+        if (!datas[0].equals("0")){     // evite les carte noble
+            DevCard card = new DevCard(
+                    StringToInt(datas[0]),                  // Niveau
+                    StringToInt(datas[1]),              // Coût en DIAMOND
+                    StringToInt(datas[2]),          // Coût en SAPPHIRE
+                    StringToInt(datas[3]),          // Coût en EMERALD
+                    StringToInt(datas[4]),          // Coût en RUBY
+                    StringToInt(datas[5]),          // Coût en ONYX
+                    StringToInt(datas[6]),                  // Points de prestige
+                    datas[7] //Resource.values()[i % 5].toString() // Type de ressource (en rotation)
                 );
-                deck[tier - 1].push(card);
-            }
+                deck[StringToInt(datas[0]) - 1].push(card);
         }
-        // Mélanger les piles pour aléatoiriser les cartes
-        for (Stack<DevCard> stack : deck) {
-            Collections.shuffle(stack);
-        }
+      }
+      myReader.close();
+        // // Mélanger les piles pour aléatoiriser les cartes
+      for (Stack<DevCard> stack : deck) {
+          Collections.shuffle(stack);
+      }
+      }catch(FileNotFoundException e){}
+      
     } 
 
 
@@ -248,7 +265,7 @@ public class Board implements Displayable {
         }
 
         String[] cardDisplay = Display.emptyStringArray(0, 0);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 2; i > -1; i--) {
             String[] tierCardsDisplay = Display.emptyStringArray(8, 0);
             for (int j = 0; j < 4; j++) {
                 tierCardsDisplay = Display.concatStringArray(tierCardsDisplay,
