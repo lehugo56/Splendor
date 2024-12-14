@@ -87,10 +87,10 @@ public class Game {
         while (!isGameOver()) {
             Player currentPlayer = players.get(currentPlayerIndex);
             
-            String[] test = board.toStringArray(); 
-            for(String i : test){
-            Game.display.outBoard.println(i);
-        }
+            Game.display.out.clean();
+            
+            display(currentPlayerIndex);
+            
             // Le joueur choisit une action et l'exécute
             Action action = currentPlayer.chooseAction(board);
             action.process(board, currentPlayer);
