@@ -59,15 +59,17 @@ public class HumanPlayer extends Player
         Game.display.out.println("C : Retirer 3 jetons de type différents");
         Game.display.out.println("D : Passer son tour");
         String action = scanner.nextLine();
-        switch(action)
+        switch(action.toUpperCase())
         {   
            case "A": // Acheter une carte
                Game.display.out.println("Quelle est la colonne de la carte que vous voulez acheter ?");
+               Game.display.out.println("Entrez : 1, 2, 3 ou 4");
                int column = scanner.nextInt();
-               
+               Game.display.out.println(" ");
                Game.display.out.println("Quelle est le niveau de la carte que vous voulez acheter ?");
+               Game.display.out.println("Entrez : 1, 2 ou 3");
                int level = scanner.nextInt();
-               
+               Game.display.out.println(" ");
                return new BuyCardAction(level - 1, column - 1);
   
                
@@ -75,7 +77,7 @@ public class HumanPlayer extends Player
                Game.display.out.println("Pour quelle ressource voulez-vous récuperer 2 jetons ?");
                Game.display.out.println("Diamond, Sapphire, Emerald, Ruby ou Onyx");
                String reponse = scanner.nextLine();
-               
+               Game.display.out.println(" ");
                return new PickSameTokensAction(TypeResourcPlayer(reponse));
  
                
@@ -83,12 +85,13 @@ public class HumanPlayer extends Player
                ArrayList<Resource> listeRes = new ArrayList<Resource>();
                for (int i = 1; i<4 ; i++){
                    Game.display.out.println("Quelle ressource voulez-vous prendre ?");
-                   Game.display.out.println("Diamond, Sapphire, Emerald, Ruby ou Onyx");
+                   Game.display.out.println("Entrez : Diamond, Sapphire, Emerald, Ruby ou Onyx");
                    reponse = scanner.nextLine();
                    listeRes.add(TypeResourcPlayer(reponse));
-                   if (i != 1){
+                   if (listeRes != null){
                        Game.display.out.println("Vous avez déja pris : " + listeRes);
                    }
+                   Game.display.out.println(" ");
                }
                return new PickDiffTokensAction(listeRes);
                
