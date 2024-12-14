@@ -90,6 +90,19 @@ public abstract class Player implements Displayable {
         }
         return true;
     }
+        public void buyCard(int level,int column,Board board){
+        DevCard card=board.getCard(level,column);
+        if (canBuyCard( card)){
+            for (Resource resource : Resource.values()) {
+                int res=resources.getNbResource(resource);
+                board.updateNbResource(resource, res);//ajoute les ressources sur le plateau
+                resources.updateNbResource(resource,-res);//eleve les ressource au joueur
+            }
+            purchaseCards.add(card);
+            board.updateCard(level,column);
+        }
+        
+    }
     
      /**
      * Met à jour le nombre de ressource (pour un type donné) en fonction de v
