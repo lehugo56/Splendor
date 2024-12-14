@@ -81,12 +81,12 @@ public class HumanPlayer extends Player
                
            case "C": // Retirer 3 jetons de type diff
                ArrayList<Resource> listeRes = new ArrayList<Resource>();
-               for (int i = 0; i<4 ; i++){
+               for (int i = 1; i<4 ; i++){
                    Game.display.out.println("Quelle ressource voulez-vous prendre ?");
                    Game.display.out.println("Diamond, Sapphire, Emerald, Ruby ou Onyx");
                    reponse = scanner.nextLine();
                    listeRes.add(TypeResourcPlayer(reponse));
-                   if (i != 0){
+                   if (i != 1){
                        Game.display.out.println("Vous avez déja pris : " + listeRes);
                    }
                }
