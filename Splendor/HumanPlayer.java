@@ -26,7 +26,7 @@ public class HumanPlayer extends Player
      */
     public Resource TypeResourcPlayer (String reponse) {
         Resource resource;
-
+        reponse = reponse.toUpperCase();
         if (reponse.equals("DIAMOND")){
             resource = Resource.DIAMOND;
         }else if (reponse.equals("SAPPHIRE")){
@@ -73,6 +73,7 @@ public class HumanPlayer extends Player
                
            case "B": // Retirer 2 jetons du meme type de ressource
                Game.display.out.println("Pour quelle ressource voulez-vous récuperer 2 jetons ?");
+               Game.display.out.println("Diamond, Sapphire, Emerald, Ruby ou Onyx");
                String reponse = scanner.nextLine();
                
                return new PickSameTokensAction(TypeResourcPlayer(reponse));
@@ -82,8 +83,12 @@ public class HumanPlayer extends Player
                ArrayList<Resource> listeRes = new ArrayList<Resource>();
                for (int i = 0; i<4 ; i++){
                    Game.display.out.println("Quelle ressource voulez-vous prendre ?");
+                   Game.display.out.println("Diamond, Sapphire, Emerald, Ruby ou Onyx");
                    reponse = scanner.nextLine();
                    listeRes.add(TypeResourcPlayer(reponse));
+                   if (i != 0){
+                       Game.display.out.println("Vous avez déja pris : " + listeRes);
+                   }
                }
                return new PickDiffTokensAction(listeRes);
                
