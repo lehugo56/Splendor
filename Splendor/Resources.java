@@ -100,14 +100,14 @@ public class Resources
      */
     public int[] getAvailableResources(){
         
-        int cpt=-1;
+        int cpt=0;
         
         for(int i=0;i<8;i++){//Permet de savoir quelle taille la liste doit etre
             if(listeResources[i]>0){
                 cpt+=1;
             }
         }
-        if (cpt==-1){ //verifie que la liste n'est pas nulle
+        if (cpt==0){ //verifie que la liste n'est pas nulle
             return null;
         }
         else{
