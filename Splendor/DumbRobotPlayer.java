@@ -35,8 +35,8 @@ public class DumbRobotPlayer extends Player
     }
     
     public Action chooseAction(Board board){ 
-    for(int level = 3 ; level > 0; level--){
-        for(int column = 1 ; column <= 4; column++){
+    for(int level = 2 ; level > -1; level--){
+        for(int column = 0 ; column <= 3; column++){
             if (canBuyCard(board.getCard(level , column))){
                 return new BuyCardAction(level, column);
             }
