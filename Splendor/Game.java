@@ -15,8 +15,14 @@ public class Game {
      * Méthode principale du jeu. Initialise une partie avec 2 joueurs par défaut.
      */
     public static void main(String[] args) {
-        Game.display.out.println("Bienvenue sur Splendor !");
-        Game game = new Game(2); // Démarrer une partie avec 2 joueurs
+        int reponse = 0;
+        
+        while (reponse < 2 || reponse > 4){
+            Scanner scanner = new Scanner( Game.display.in );
+            Game.display.out.println("Combien de joueur voulez vous au tour de la table (2 a 4 joueur) ?");
+            reponse = scanner.nextInt();
+        }
+        Game game = new Game(reponse); // Démarrer une partie avec 2 joueurs
         game.play();
         display.close();
     }
