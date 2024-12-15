@@ -100,6 +100,7 @@ public abstract class Player implements Displayable {
             }
             purchaseCards.add(card);
             board.updateCard(level,column);
+            points += card.getPoints();
         }
         
     }
