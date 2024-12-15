@@ -95,7 +95,7 @@ public abstract class Player implements Displayable {
         if (canBuyCard( card)){
             for (Resource resource : Resource.values()) {
                 int res = card.getRes().getNbResource(resource);
-                board.updateNbResource(resource, res - getResFromCards(resource));//ajoute les ressources sur le plateau
+                board.updateNbResource(resource, res - (getResFromCards(resource) <= res ? getResFromCards(resource) : res));//ajoute les ressources sur le plateau
                 resources.updateNbResource(resource,-(res - getResFromCards(resource) > 0 ? res - getResFromCards(resource) : 0) );//enleve les resource au joueur
             }
             purchaseCards.add(card);
