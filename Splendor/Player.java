@@ -96,7 +96,7 @@ public abstract class Player implements Displayable {
             for (Resource resource : Resource.values()) {
                 int res = card.getRes().getNbResource(resource);
                 board.updateNbResource(resource, res - getResFromCards(resource));//ajoute les ressources sur le plateau
-                resources.updateNbResource(resource,-(res - getResFromCards(resource) > 0 ? res - getResFromCards(resource) : 0) );//eleve les ressource au joueur
+                resources.updateNbResource(resource,-(res - getResFromCards(resource) > 0 ? res - getResFromCards(resource) : 0) );//enleve les resource au joueur
             }
             purchaseCards.add(card);
             board.updateCard(level,column);
