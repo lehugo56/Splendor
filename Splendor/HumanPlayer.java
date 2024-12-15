@@ -92,7 +92,7 @@ public class HumanPlayer extends Player
   
                
            case "B": // Retirer 2 jetons du meme type de ressource
-               while (!list_res.contains(reponse)){
+               while (list_res.contains(reponse) == false){
                    Game.display.out.println("Pour quelle ressource voulez-vous récuperer 2 jetons ?");
                    Game.display.out.println("Entrez : Diamond, Sapphire, Emerald, Ruby ou Onyx");
                    reponse = scanner.nextLine().toUpperCase();
@@ -102,17 +102,28 @@ public class HumanPlayer extends Player
  
                
            case "C": // Retirer 3 jetons de type diff
-               ArrayList<Resource> listeRes = new ArrayList<Resource>();
+               ArrayList<Resource> listeRes = new ArrayList<Resource>(); // Regroupe les 3 ressources choisies
                for (int i = 1; i<4 ; i++){
                    reponse = "";
-                   while (!list_res.contains(reponse)){
+                   while (list_res.contains(reponse) == false){ // Demande que l'orthographe soit correct
                      Game.display.out.println("Quelle ressource voulez-vous prendre ?");
                      Game.display.out.println("Entrez : Diamond, Sapphire, Emerald, Ruby ou Onyx");
-                     reponse = scanner.nextLine().toUpperCase();  
-                    }
-                   listeRes.add(TypeResourcPlayer(reponse));
-                   if (listeRes != null){
-                       Game.display.out.println("Vous avez déja pris : " + listeRes);
+                     reponse = scanner.nextLine().toUpperCase();
+                     Resource rep_converti = TypeResourcPlayer(reponse);
+                     
+                     if (listeRes.contains(rep_converti) == false && list_res.contains(reponse) == true){ // Si la réponse n'est pas déja présente dans la liste
+                         listeRes.add(rep_converti);
+                         
+                     }
+                     else { //sinon on redemande
+                         Game.display.out.println(" ");
+                         Game.display.out.println("Ce n'est pas correct, veuillez retenter !");
+                         Game.display.out.println(" ");
+                         reponse = " ";
+                     }
+                     if (listeRes != null){
+                        Game.display.out.println("Vous avez déja pris : " + listeRes);
+                     }
                    }
                    Game.display.out.println(" ");
                }
