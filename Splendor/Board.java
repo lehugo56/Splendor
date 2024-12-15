@@ -112,7 +112,6 @@ public class Board implements Displayable {
       while (myReader.hasNextLine()) {
         data = myReader.nextLine();
         String[] datas = data.split(",");
-        System.out.println(Arrays.toString(datas));
         if (!datas[0].equals("0")){     // evite les carte noble
             DevCard card = new DevCard(
                     StringToInt(datas[0]),                  // Niveau
