@@ -92,14 +92,28 @@ public class Game {
             display(currentPlayerIndex);
             
             // Le joueur choisit une action et l'exécute
-            Action action = currentPlayer.chooseAction(board);
-            action.process(board, currentPlayer);
-            //display.actionPerformed(currentPlayer, action);
+            boolean havetoplay= true;
+            while(havetoplay){
+            try{
+                Action action = currentPlayer.chooseAction(board);
+                action.process(board, currentPlayer);
+                havetoplay = false;
+            }catch(IllegalArgumentException e){
+                Game.display.out.println("Action impossible, veuillez recommencer!");
+            }catch(IllegalStateException e){
+                Game.display.out.println("Action impossible, veuillez recommencer!");
+            }
+            
+            }
 
             // Si le joueur dépasse la limite de jetons, il doit en défausser
-            if (currentPlayer.getNbTokens() > 10) {
-                DiscardTokensAction discardAction = currentPlayer.chooseDiscardingTokens(1);
-                discardAction.process(board, currentPlayer);
+            while (currentPlayer.getNbTokens() > 10) {
+                try{
+                    DiscardTokensAction discardAction = currentPlayer.chooseDiscardingTokens(1);
+                    discardAction.process(board, currentPlayer);
+                }catch(IllegalStateException e){
+                    Game.display.out.println("Action impossible, veuillez recommencer!");
+                }
             }
 
             // Passer au joueur suivant
