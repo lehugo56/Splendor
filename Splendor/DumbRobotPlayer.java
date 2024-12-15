@@ -69,10 +69,9 @@ public class DumbRobotPlayer extends Player
      * 
      */
     public DiscardTokensAction chooseDiscardingTokens(int nbTokens){
-        int[] ressourcedispo = getAvailableResources();
         
         Random randomNumbers = new Random();
-        int random = randomNumbers.nextInt(ressourcedispo.length); 
+        int random = randomNumbers.nextInt(1,5); 
         
         
         return new DiscardTokensAction( TypeResourcPlayer(random) , nbTokens);
