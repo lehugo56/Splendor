@@ -145,7 +145,7 @@ public class HumanPlayer extends Player
         Scanner scanner = new Scanner( Game.display.in );
         
         Game.display.out.println("Quelle ressource voulez-vous supprimer?");
-        String reponse = scanner.nextLine();
+        String reponse = scanner.nextLine().toUpperCase();
         
         return new DiscardTokensAction(TypeResourcPlayer(reponse), nbTokens);
     }
