@@ -36,7 +36,7 @@ public class HumanPlayer extends Player
         }else if (reponse.equals("ONYX")){
             resource = Resource.ONYX;
         }else{
-            Game.display.out.println("Vous avez mal écrit le type de la ressource " + reponse);
+            Game.display.out.println("Vous avez mal écrit le type de la ressource : " + reponse);
             resource = null;
         }
            
@@ -55,7 +55,6 @@ public class HumanPlayer extends Player
         Game.display.out.println("A : Acheter une carte");
         Game.display.out.println("B : Retirer 2 jetons du meme type de ressource");
         Game.display.out.println("C : Retirer 3 jetons de type différents");
-        Game.display.out.println("D : Passer son tour");
         String action = scanner.nextLine();
         
         // Tableau de toutes les réponses possibles pour facilité la vérification
@@ -72,19 +71,20 @@ public class HumanPlayer extends Player
         switch(action.toUpperCase())
         {   
            case "A": // Acheter une carte
+
+               int level = 5;
+               while (level > 3){
+                   Game.display.out.println("Quel est le niveau de la carte que vous voulez acheter ?");
+                   Game.display.out.println("Entrez : 1, 2 ou 3");
+                    level = scanner.nextInt();
+                   Game.display.out.println(" ");
+               }
+               
                int column = 5;
                while (column > 4){
                    Game.display.out.println("Quelle est la colonne de la carte que vous voulez acheter ?");
                    Game.display.out.println("Entrez : 1, 2, 3 ou 4");
                    column = scanner.nextInt();
-                   Game.display.out.println(" ");
-               }
-               
-               int level = 5;
-               while (level > 3){
-                   Game.display.out.println("Quelle est le niveau de la carte que vous voulez acheter ?");
-                   Game.display.out.println("Entrez : 1, 2 ou 3");
-                    level = scanner.nextInt();
                    Game.display.out.println(" ");
                }
                
